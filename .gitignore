@@ -1,3 +1,6 @@
+.idea
+.DS_Store
+
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
@@ -50,3 +53,22 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+/docker/postgres/data
+/docker/.env.local
+/docker/nginx/config/default.conf
+/credentials/jwt/public.pem
+
+/translations
+!/translations/.gitkeep
+docker-compose.override.yml

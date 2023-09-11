@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'Form/custom_form.html.twig' %}
+
+{% block body %}
+    <div>
+        <h1>Test</h1>
+    </div>
+    <div>
+        {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_widget(form) }}
+            <br>
+            <button type="submit">Send</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

@@ -12,36 +12,47 @@ use Doctrine\ORM\Mapping\ManyToOne;
 class TestItem
 {
     #[Id, ManyToOne(targetEntity: Question::class)]
-    private Question $question;
+    private ?Question $question = null;
 
     #[Id, ManyToOne(targetEntity: Answer::class)]
-    private Answer $answer;
+    private ?Answer $answer = null;
 
     #[Column]
-    private bool $isRightAnswer;
+    private ?bool $isRightAnswer = null;
 
-    public function __construct(
-        Question $question,
-        Answer $answer,
-        bool $isRightAnswer
-    ) {
-        $this->question = $question;
-        $this->answer = $answer;
-        $this->isRightAnswer = $isRightAnswer;
-    }
-
-    public function getQuestion(): Question
+    public function getQuestion(): ?Question
     {
         return $this->question;
     }
 
-    public function getAnswer(): Answer
+    public function setQuestion(Question $question): TestItem
+    {
+        $this->question = $question;
+
+        return $this;
+    }
+
+    public function getAnswer(): ?Answer
     {
         return $this->answer;
     }
 
-    public function isRightAnswer(): bool
+    public function setAnswer(Answer $answer): TestItem
+    {
+        $this->answer = $answer;
+
+        return $this;
+    }
+
+    public function isRightAnswer(): ?bool
     {
         return $this->isRightAnswer;
+    }
+
+    public function setIsRightAnswer(bool $isRightAnswer): TestItem
+    {
+        $this->isRightAnswer = $isRightAnswer;
+
+        return $this;
     }
 }

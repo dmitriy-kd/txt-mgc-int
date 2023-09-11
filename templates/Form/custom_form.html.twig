@@ -1,0 +1,8 @@
+{% block _test_questions_entry_widget %}
+    <br>
+    {{ form_widget(form) }}
+{% endblock %}
+
+{% block _test_questions_entry_testItems_entry_answer_text_widget %}
+    <input type="checkbox" name="{{ field_name(form) }}" value="{{ field_value(form) }}">{{ field_value(form) }}
+{% endblock %}

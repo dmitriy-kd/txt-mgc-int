@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <h3>You've answered right on these questions:</h3>
+        <ul>
+            {% for question in passQuestions %}
+                <li>{{ question.text }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <h3>You've answered not right on these questions:</h3>
+        <ul>
+            {% for question in notPassQuestions %}
+                <li>{{ question.text }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <a href="">
+        <button>Try again</button>
+    </a>
+{% endblock %}

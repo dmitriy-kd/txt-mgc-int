@@ -19,6 +19,10 @@ class FillDataTestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        if ($this->em->getRepository(Question::class)->findAll()) {
+            return Command::SUCCESS;
+        }
+
         $questions = $this->createQuestions();
         $answers = $this->createAnswers();
         $this->createTestItems($questions, $answers);
@@ -33,7 +37,8 @@ class FillDataTestCommand extends Command
         $questions = [];
 
         for ($i = 1; $i <= 10; $i++) {
-            $question = new Question("{$i}+{$i}");
+            $question = (new Question())
+                ->setText("{$i}+{$i}");
 
             $this->em->persist($question);
             $questions[$i] = $question;
@@ -44,28 +49,28 @@ class FillDataTestCommand extends Command
 
     private function createAnswers(): array
     {
-        $answers[1] = new Answer("3");
-        $answers[2] = new Answer("2");
-        $answers[3] = new Answer("0");
-        $answers[4] = new Answer("4");
-        $answers[5] = new Answer("3+1");
-        $answers[6] = new Answer("10");
-        $answers[7] = new Answer("1+5");
-        $answers[8] = new Answer("1");
-        $answers[9] = new Answer("6");
-        $answers[10] = new Answer("2+4");
-        $answers[11] = new Answer("8");
-        $answers[12] = new Answer("0+8");
-        $answers[13] = new Answer("18");
-        $answers[14] = new Answer("9");
-        $answers[15] = new Answer("12");
-        $answers[16] = new Answer("5+7");
-        $answers[17] = new Answer("5");
-        $answers[18] = new Answer("14");
-        $answers[19] = new Answer("16");
-        $answers[20] = new Answer("17+1");
-        $answers[21] = new Answer("3+16");
-        $answers[22] = new Answer("20");
+        $answers[1] = (new Answer())->setText("3");
+        $answers[2] = (new Answer())->setText("2");
+        $answers[3] = (new Answer())->setText("0");
+        $answers[4] = (new Answer())->setText("4");
+        $answers[5] = (new Answer())->setText("3+1");
+        $answers[6] = (new Answer())->setText("10");
+        $answers[7] = (new Answer())->setText("1+5");
+        $answers[8] = (new Answer())->setText("1");
+        $answers[9] = (new Answer())->setText("6");
+        $answers[10] = (new Answer())->setText("2+4");
+        $answers[11] = (new Answer())->setText("8");
+        $answers[12] = (new Answer())->setText("0+8");
+        $answers[13] = (new Answer())->setText("18");
+        $answers[14] = (new Answer())->setText("9");
+        $answers[15] = (new Answer())->setText("12");
+        $answers[16] = (new Answer())->setText("5+7");
+        $answers[17] = (new Answer())->setText("5");
+        $answers[18] = (new Answer())->setText("14");
+        $answers[19] = (new Answer())->setText("16");
+        $answers[20] = (new Answer())->setText("17+1");
+        $answers[21] = (new Answer())->setText("3+16");
+        $answers[22] = (new Answer())->setText("20");
 
         for ($i = 1; $i <= 22; $i++) {
             $this->em->persist($answers[$i]);
@@ -139,11 +144,10 @@ class FillDataTestCommand extends Command
 
         foreach ($mapQuestionsAnswers as $questionIndex => $answerIndexes) {
             foreach ($answerIndexes as $answerIndex => $isRightAnswer) {
-                $testItem = new TestItem(
-                    $questions[$questionIndex],
-                    $answers[$answerIndex],
-                    $isRightAnswer
-                );
+                $testItem = (new TestItem())
+                    ->setQuestion($questions[$questionIndex])
+                    ->setAnswer($answers[$answerIndex])
+                    ->setIsRightAnswer($isRightAnswer);
 
                 $this->em->persist($testItem);
             }

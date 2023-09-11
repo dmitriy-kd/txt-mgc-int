@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for error in errors %}
+        <div>
+            <span style="color: red">{{ error.message }}</span>
+        </div>
+    {% endfor %}
+    <a href=""><button>Back</button></a>
+{% endblock %}

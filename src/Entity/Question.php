@@ -10,8 +10,10 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use App\Repository\QuestionRepository;
 use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 #[Entity(repositoryClass: QuestionRepository::class)]
+#[UniqueConstraint(name: 'idx_uniq_question_text', columns: ['text'])]
 class Question
 {
     #[Id, Column, GeneratedValue]
@@ -21,21 +23,39 @@ class Question
     private Collection $testItems;
 
     #[Column(length: 255)]
-    private string $text;
+    private ?string $text = null;
 
-    public function __construct(string $text)
+    public function __construct()
     {
-        $this->text = $text;
         $this->testItems = new ArrayCollection();
     }
 
-    public function getText(): string
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getText(): ?string
     {
         return $this->text;
     }
 
-    public function getTestItems(): ArrayCollection
+    public function setText(string $text): Question
+    {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    public function getTestItems(): Collection
     {
         return $this->testItems;
+    }
+
+    public function setTestItems(array $testItems): Question
+    {
+        $this->testItems = new ArrayCollection($testItems);
+
+        return $this;
     }
 }
